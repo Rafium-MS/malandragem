@@ -15,14 +15,15 @@ que uma funcionalidade for concluída ou mudar de escopo.
 - [x] Caminhada e corrida
 - [x] Aceleração e desaceleração
 - [x] Controle no ar
-- [ ] Animações provisórias
+- [x] Animações provisórias
 
 ### Estado atual
 
 O controlador em terceira pessoa possui movimento relativo à câmera, corrida,
 controle aéreo, pulo com altura variável, *coyote time* e buffer de pulo. Os
-estados `idle`, `walk`, `sprint`, `jump` e `fall` já são emitidos pelo controlador
-e estão prontos para serem conectados a um `AnimationTree`.
+estados `idle`, `walk`, `sprint`, `jump` e `fall` controlam as animações
+procedurais do homem low poly. No futuro, elas poderão ser substituídas por
+animações esqueléticas usando um `AnimationTree`.
 
 ## 2. Construir um quarteirão low poly
 
@@ -90,6 +91,6 @@ saindo da área de busca e permanecendo fora da visão policial por um período.
 
 ## Próxima prioridade
 
-1. Adicionar um personagem low poly provisório e suas animações.
-2. Implementar suspensão visual no carro.
-3. Criar o primeiro pedestre com rota simples.
+1. Implementar suspensão visual no carro.
+2. Criar o primeiro pedestre com rota simples.
+3. Transformar os prédios em módulos reutilizáveis.

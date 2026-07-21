@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/low_poly_man.gd" id="1_script"]
+
+[sub_resource type="BoxMesh" id="Mesh_cube"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+radius = 0.32
+height = 0.64
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="Mat_skin"]
+albedo_color = Color(0.48, 0.25, 0.14, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_shirt"]
+albedo_color = Color(0.08, 0.22, 0.48, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Mat_pants"]
+albedo_color = Color(0.055, 0.065, 0.085, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_shoes"]
+albedo_color = Color(0.5, 0.12, 0.055, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_hair"]
+albedo_color = Color(0.025, 0.018, 0.012, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_eyes"]
+albedo_color = Color(0.01, 0.012, 0.015, 1)
+roughness = 0.8
+
+[node name="LowPolyMan" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="TorsoPivot" type="Node3D" parent="."]
+position = Vector3(0, 1.25, 0)
+
+[node name="Torso" type="MeshInstance3D" parent="TorsoPivot"]
+scale = Vector3(0.78, 0.72, 0.4)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_shirt")
+
+[node name="Neck" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(0, 0.47, 0)
+scale = Vector3(0.18, 0.22, 0.18)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_skin")
+
+[node name="Head" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(0, 0.76, 0)
+mesh = SubResource("Mesh_head")
+material_override = SubResource("Mat_skin")
+
+[node name="HairTop" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(0, 1.02, -0.01)
+scale = Vector3(0.56, 0.14, 0.54)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_hair")
+
+[node name="HairBack" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(0, 0.84, -0.27)
+scale = Vector3(0.5, 0.36, 0.1)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_hair")
+
+[node name="LeftEye" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(-0.11, 0.81, 0.29)
+scale = Vector3(0.055, 0.055, 0.035)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_eyes")
+
+[node name="RightEye" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(0.11, 0.81, 0.29)
+scale = Vector3(0.055, 0.055, 0.035)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_eyes")
+
+[node name="Nose" type="MeshInstance3D" parent="TorsoPivot"]
+position = Vector3(0, 0.71, 0.32)
+scale = Vector3(0.07, 0.1, 0.08)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_skin")
+
+[node name="LeftArm" type="Node3D" parent="."]
+position = Vector3(-0.5, 1.55, 0)
+
+[node name="Sleeve" type="MeshInstance3D" parent="LeftArm"]
+position = Vector3(0, -0.18, 0)
+scale = Vector3(0.25, 0.38, 0.3)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_shirt")
+
+[node name="Forearm" type="MeshInstance3D" parent="LeftArm"]
+position = Vector3(0, -0.55, 0)
+scale = Vector3(0.2, 0.42, 0.22)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_skin")
+
+[node name="RightArm" type="Node3D" parent="."]
+position = Vector3(0.5, 1.55, 0)
+
+[node name="Sleeve" type="MeshInstance3D" parent="RightArm"]
+position = Vector3(0, -0.18, 0)
+scale = Vector3(0.25, 0.38, 0.3)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_shirt")
+
+[node name="Forearm" type="MeshInstance3D" parent="RightArm"]
+position = Vector3(0, -0.55, 0)
+scale = Vector3(0.2, 0.42, 0.22)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_skin")
+
+[node name="LeftLeg" type="Node3D" parent="."]
+position = Vector3(-0.22, 0.9, 0)
+
+[node name="Leg" type="MeshInstance3D" parent="LeftLeg"]
+position = Vector3(0, -0.42, 0)
+scale = Vector3(0.28, 0.82, 0.32)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_pants")
+
+[node name="Shoe" type="MeshInstance3D" parent="LeftLeg"]
+position = Vector3(0, -0.84, 0.09)
+scale = Vector3(0.31, 0.16, 0.5)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_shoes")
+
+[node name="RightLeg" type="Node3D" parent="."]
+position = Vector3(0.22, 0.9, 0)
+
+[node name="Leg" type="MeshInstance3D" parent="RightLeg"]
+position = Vector3(0, -0.42, 0)
+scale = Vector3(0.28, 0.82, 0.32)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_pants")
+
+[node name="Shoe" type="MeshInstance3D" parent="RightLeg"]
+position = Vector3(0, -0.84, 0.09)
+scale = Vector3(0.31, 0.16, 0.5)
+mesh = SubResource("Mesh_cube")
+material_override = SubResource("Mat_shoes")

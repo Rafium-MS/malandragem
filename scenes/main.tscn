@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
+
+[sub_resource type="Environment" id="Environment_main"]
+background_mode = 1
+background_color = Color(0.48, 0.7, 0.9, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.7, 0.78, 0.9, 1)
+ambient_light_energy = 0.7
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape_ground"]
+size = Vector3(40, 0.2, 40)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+size = Vector3(40, 0.2, 40)
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.24, 0.5, 0.24, 1)
+roughness = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape_block"]
+size = Vector3(4, 3, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_block"]
+size = Vector3(4, 3, 4)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_main")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-55, -35, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+position = Vector3(0, -0.1, 0)
+shape = SubResource("BoxShape_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+position = Vector3(0, -0.1, 0)
+mesh = SubResource("BoxMesh_ground")
+material_override = SubResource("Material_ground")
+
+[node name="TestBlock" type="StaticBody3D" parent="."]
+position = Vector3(4, 1.5, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestBlock"]
+shape = SubResource("BoxShape_block")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestBlock"]
+mesh = SubResource("BoxMesh_block")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector3(0, 0.1, 4)
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 510.0
+offset_bottom = 78.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "WASD/Setas: mover   Shift: correr   Espaco: pular\nMouse: camera   Roda: zoom   Esc: liberar o mouse"

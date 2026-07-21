@@ -1,0 +1,16 @@
+# Cenas, recursos e scripts permanecem comparaveis no Git.
+* text=auto eol=lf
+*.gd text diff
+*.tscn text diff
+*.tres text diff
+*.godot text diff
+
+# Assets binarios nao recebem conversao de fim de linha.
+*.blend binary
+*.fbx binary
+*.glb binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ogg binary
+*.wav binary

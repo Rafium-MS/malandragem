@@ -1,0 +1,9 @@
+.godot/
+/.idea/
+/.vscode/
+*.tmp
+*.translation
+export.cfg
+export_presets.cfg
+*.import
+*.log

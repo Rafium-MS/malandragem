@@ -55,15 +55,16 @@ adaptação individual das rodas ao terreno ainda não foram implementadas.
 
 ## 4. Adicionar NPCs
 
-- [ ] Pedestres caminhando
-- [ ] Rotas simples
-- [ ] Reação ao jogador e veículos
+- [x] Pedestres caminhando
+- [x] Rotas simples
+- [ ] Reação ao jogador e veículos — 🚧 o primeiro NPC já para diante de obstáculos e veículos em movimento
 - [ ] Trânsito básico
 
 ### Próximo resultado esperado
 
-Um pedestre low poly deve percorrer uma rota de pontos, parar diante de um
-obstáculo e reagir quando um veículo se aproximar.
+O primeiro pedestre low poly percorre uma rota de pontos, pausa nas extremidades
+e para diante de obstáculos ou veículos em movimento. Ainda falta reagir
+diretamente ao jogador e desviar de bloqueios permanentes.
 
 ## 5. Criar a primeira missão
 
@@ -92,5 +93,5 @@ saindo da área de busca e permanecendo fora da visão policial por um período.
 ## Próxima prioridade
 
 1. Implementar suspensão visual no carro.
-2. Criar o primeiro pedestre com rota simples.
+2. Adicionar desvio de obstáculos e reação do pedestre ao jogador.
 3. Transformar os prédios em módulos reutilizáveis.

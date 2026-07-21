@@ -59,6 +59,11 @@ sprint={
 , Object(InputEventKey,"physical_keycode":4194326)
 ]
 }
+interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"physical_keycode":69)
+]
+}
 
 [rendering]
 

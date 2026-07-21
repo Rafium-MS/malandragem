@@ -14,6 +14,9 @@ signal movement_state_changed(state: StringName)
 @export_range(0.0, 0.5, 0.01) var jump_buffer_time := 0.12
 @export var visual_turn_speed := 14.0
 
+@export_category("Interacao")
+@export var interaction_distance := 3.0
+
 @export_category("Camera")
 @export var mouse_sensitivity := 0.0025
 @export var camera_smooth_speed := 18.0
@@ -30,6 +33,7 @@ signal movement_state_changed(state: StringName)
 @onready var spring_arm: SpringArm3D = $CameraPivot/SpringArm3D
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
 @onready var visual: Node3D = $Visual
+@onready var body_collision: CollisionShape3D = $CollisionShape3D
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _target_camera_yaw := 0.0
@@ -38,6 +42,7 @@ var _target_zoom := 5.0
 var _coyote_timer := 0.0
 var _jump_buffer_timer := 0.0
 var _movement_state: StringName = &"idle"
+var _current_vehicle: Node3D
 
 
 func _ready() -> void:
@@ -47,6 +52,17 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		if is_instance_valid(_current_vehicle):
+			_exit_current_vehicle()
+		else:
+			_try_enter_nearest_vehicle()
+		get_viewport().set_input_as_handled()
+		return
+
+	if is_instance_valid(_current_vehicle):
+		return
+
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		_target_camera_yaw -= event.relative.x * mouse_sensitivity
 		_target_camera_pitch -= event.relative.y * mouse_sensitivity
@@ -72,6 +88,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	if is_instance_valid(_current_vehicle):
+		return
+
 	var camera_weight := 1.0 - exp(-camera_smooth_speed * delta)
 	camera_pivot.rotation.y = lerp_angle(camera_pivot.rotation.y, _target_camera_yaw, camera_weight)
 	camera_pivot.rotation.x = lerp_angle(camera_pivot.rotation.x, _target_camera_pitch, camera_weight)
@@ -84,6 +103,11 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_instance_valid(_current_vehicle):
+		global_position = _current_vehicle.global_position
+		velocity = Vector3.ZERO
+		return
+
 	_update_jump_timers(delta)
 	_apply_gravity_and_jump(delta)
 
@@ -149,3 +173,35 @@ func _update_movement_state(direction: Vector3) -> void:
 
 func _horizontal_speed() -> float:
 	return Vector2(velocity.x, velocity.z).length()
+
+
+func _try_enter_nearest_vehicle() -> void:
+	var nearest_vehicle: Node3D
+	var nearest_distance := interaction_distance
+	for candidate in get_tree().get_nodes_in_group("vehicles"):
+		if not candidate is Node3D or not candidate.has_method("set_driver"):
+			continue
+		var distance := global_position.distance_to(candidate.global_position)
+		if distance <= nearest_distance and candidate.call("can_enter"):
+			nearest_vehicle = candidate
+			nearest_distance = distance
+
+	if nearest_vehicle == null:
+		return
+
+	_current_vehicle = nearest_vehicle
+	velocity = Vector3.ZERO
+	visual.visible = false
+	body_collision.set_deferred("disabled", true)
+	camera.current = false
+	_current_vehicle.call("set_driver", self)
+
+
+func _exit_current_vehicle() -> void:
+	var vehicle := _current_vehicle
+	_current_vehicle = null
+	global_position = vehicle.call("get_exit_position")
+	vehicle.call("remove_driver")
+	visual.visible = true
+	body_collision.set_deferred("disabled", false)
+	camera.current = true

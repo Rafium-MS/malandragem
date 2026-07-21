@@ -17,6 +17,14 @@ Protótipo inicial de um jogo 3D de mundo aberto feito com Godot 4 e GDScript.
 - Espaço: pular
 - `Esc`: liberar o cursor
 - Clique: capturar o cursor novamente
+- `E`: entrar ou sair de um veículo próximo
+
+### Veículo
+
+- `W` / `S`: acelerar e dar ré
+- `A` / `D`: virar
+- Espaço: frear
+- Mouse: controlar a câmera do veículo
 
 ## Colaboracao com Git
 

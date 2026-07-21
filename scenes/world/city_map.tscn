@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/quarter_block.tscn" id="1_block"]
+[ext_resource type="PackedScene" path="res://scenes/world/intersection.tscn" id="2_intersection"]
+
+[node name="CityMap" type="Node3D"]
+
+[node name="SouthBlock" parent="." instance=ExtResource("1_block")]
+
+[node name="Intersection" parent="." instance=ExtResource("2_intersection")]
+position = Vector3(0, 0, 20)
+
+[node name="NorthBlock" parent="." instance=ExtResource("1_block")]
+position = Vector3(0, 0, 40)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="WestBlock" parent="." instance=ExtResource("1_block")]
+position = Vector3(-40, 0, 20)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="EastBlock" parent="." instance=ExtResource("1_block")]
+position = Vector3(40, 0, 20)
+rotation_degrees = Vector3(0, -90, 0)
+

@@ -30,5 +30,6 @@ Protótipo inicial de um jogo 3D de mundo aberto feito com Godot 4 e GDScript.
 
 - Refinar o controlador e adicionar animações
 - Construir um quarteirão modular
+- Expandir o quarteirão modular com cruzamento e detalhes
 - Criar o primeiro veículo
 - Implementar entrada e saída do veículo
